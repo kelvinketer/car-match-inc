@@ -58,5 +58,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Helper function to save the chat history safely inside an async function
         # UPDATED: Search by username instead of ID to match what React sends
         sender = User.objects.get(username=sender_id)
-        room = ChatRoom.objects.get(id=room_id)
+        
+        # FINAL FIX: Find the room, or automatically create it if it's missing!
+        room, created = ChatRoom.objects.get_or_create(id=room_id)
+        
         Message.objects.create(sender=sender, room=room, content=message)
