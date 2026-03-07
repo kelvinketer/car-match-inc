@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 
+// Grab the base API URL (e.g., https://car-match-backend...onrender.com)
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+// Dynamically convert http/https to ws/wss for WebSockets
+const WS_BASE_URL = API_BASE_URL.replace(/^http/, 'ws');
+
 export default function ChatUI({ roomId, currentUserId }) {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -16,8 +22,8 @@ export default function ChatUI({ roomId, currentUserId }) {
   }, [messages]);
 
   useEffect(() => {
-    // Open the WebSocket connection to Django Channels
-    ws.current = new WebSocket(`ws://localhost:8000/ws/chat/${roomId}/`);
+    // UPDATED: Open the WebSocket connection using the dynamic secure URL
+    ws.current = new WebSocket(`${WS_BASE_URL}/ws/chat/${roomId}/`);
 
     ws.current.onopen = () => {
       console.log(`Connected to Car Match Secure Escrow Chat: Room ${roomId}`);

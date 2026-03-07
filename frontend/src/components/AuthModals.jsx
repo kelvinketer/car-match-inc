@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+// Dynamically route to Render in production, or localhost during development
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 export default function AuthModals({ onLoginSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
@@ -9,7 +12,9 @@ export default function AuthModals({ onLoginSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    const url = isLogin ? 'http://localhost:8000/api/token/' : 'http://localhost:8000/api/register/';
+    
+    // UPDATED: Using the dynamic API_BASE_URL
+    const url = isLogin ? `${API_BASE_URL}/api/token/` : `${API_BASE_URL}/api/register/`;
     
     try {
       const res = await axios.post(url, formData);

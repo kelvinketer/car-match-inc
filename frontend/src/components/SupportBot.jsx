@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
+// Dynamically route to Render in production, or localhost during development
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 export default function SupportBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -26,8 +29,8 @@ export default function SupportBot() {
     setIsTyping(true);
 
     try {
-      // Send message to Django backend
-      const res = await axios.post('http://localhost:8000/api/support/', {
+      // UPDATED: Send message to Django backend using dynamic API_BASE_URL
+      const res = await axios.post(`${API_BASE_URL}/api/support/`, {
         message: userText
       });
       

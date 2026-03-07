@@ -26,7 +26,12 @@ SECRET_KEY = 'django-insecure-=)g8m!6g+%j*v1%0l6nt@_7grpgry3#x*gu06)6jhxza+_0#v9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# UPDATED: Allow Render to host the application
+ALLOWED_HOSTS = [
+    'car-match-backend-wn9m.onrender.com', 
+    'localhost', 
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -134,9 +139,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom User Model for Car Match Inc. 
 AUTH_USER_MODEL = 'marketplace.User'
 
-# Allow the React frontend to communicate with the Django backend
+# UPDATED: Allow the React Vercel frontend to communicate with the Django backend
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://car-match-inc.vercel.app", # <-- Production UI
 ]
 
 # Django Channels Communication Layer
@@ -146,14 +152,14 @@ CHANNEL_LAYERS = {
     }
 }
 
-# NEW: Django REST Framework Authentication Settings
+# Django REST Framework Authentication Settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
 
-# NEW: JWT Token Lifespan Configuration
+# JWT Token Lifespan Configuration
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1), # Users stay logged in for 1 day
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),

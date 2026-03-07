@@ -5,6 +5,9 @@ import ChatUI from './ChatUI';
 import SupportBot from './SupportBot';
 import AuthModals from './AuthModals'; // NEW: Secure entry point
 
+// Dynamically route to Render in production, or localhost during development
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
@@ -23,7 +26,8 @@ export default function LandingPage() {
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/api/vehicles/', {
+        // UPDATED: Using the dynamic API_BASE_URL
+        const res = await axios.get(`${API_BASE_URL}/api/vehicles/`, {
           params: {
             make: matchMake,
             max_price: matchMaxPrice,
@@ -44,7 +48,8 @@ export default function LandingPage() {
     setIsError(false);
 
     try {
-      const response = await axios.post('http://localhost:8000/api/waitlist/', {
+      // UPDATED: Using the dynamic API_BASE_URL
+      const response = await axios.post(`${API_BASE_URL}/api/waitlist/`, {
         email: email
       });
       
