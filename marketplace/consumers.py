@@ -27,7 +27,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        sender_id = text_data_json['sender_id']
+        sender_id = text_data_json['sender_id'] # Note: This is actually the username string from React
 
         # Save message to the SQLite database
         await self.save_message(sender_id, self.room_id, message)
@@ -56,6 +56,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def save_message(self, sender_id, room_id, message):
         # Helper function to save the chat history safely inside an async function
-        sender = User.objects.get(id=sender_id)
+        # UPDATED: Search by username instead of ID to match what React sends
+        sender = User.objects.get(username=sender_id)
         room = ChatRoom.objects.get(id=room_id)
         Message.objects.create(sender=sender, room=room, content=message)
