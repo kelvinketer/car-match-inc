@@ -1,0 +1,12 @@
+# Security: Never push these files to GitHub
+.env
+db.sqlite3
+
+# Environment & Dependencies
+venv/
+__pycache__/
+*.py[cod]
+
+# Frontend Build
+frontend/node_modules/
+frontend/dist/
