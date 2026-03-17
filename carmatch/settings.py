@@ -36,6 +36,9 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
+# ADD THIS EXACT LINE: Let Django trust logins from Render
+CSRF_TRUSTED_ORIGINS = ['https://car-match-backend-wn9m.onrender.com']
+
 
 # Application definition
 
