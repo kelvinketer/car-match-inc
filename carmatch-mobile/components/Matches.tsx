@@ -4,12 +4,9 @@ import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import { StripeProvider, useStripe } from '@stripe/stripe-react-native';
 
-// --- CHOOSE YOUR BACKEND URL ---
-// 1. LOCAL TESTING (Just you on your Wi-Fi)
-const API_BASE_URL = 'http://192.168.0.106:8000'; 
-
-// 2. GLOBAL TESTING (Uncomment the line below and paste your ngrok link to share with your friend)
-// const API_BASE_URL = 'https://YOUR_UNIQUE_STRING.ngrok-free.app'; 
+// --- CAR MATCH INC. PRODUCTION CLOUD URL ---
+// This connects the mobile app to your live Render database
+const API_BASE_URL = 'https://car-match-backend-wn9m.onrender.com'; 
 
 // In a real app, never hardcode this. Fetch it from your server or .env file!
 const STRIPE_PUBLISHABLE_KEY = 'pk_test_your_dummy_publishable_key_here';
