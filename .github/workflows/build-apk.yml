@@ -1,6 +1,5 @@
 name: Build Android APK
 
-# 1. THE TRIGGER: Run this every time code is pushed to the 'main' branch
 on:
   push:
     branches:
@@ -8,16 +7,14 @@ on:
 
 jobs:
   build:
-    # 2. THE ENVIRONMENT: Spin up a Linux server
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # <-- UPGRADED to v4
 
-      # 3. SETUP DEPENDENCIES
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4 # <-- UPGRADED to v4
         with:
           node-version: '18' 
 
@@ -26,12 +23,11 @@ jobs:
         run: npm install
 
       - name: Setup Java (JDK 17 required for Gradle)
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4 # <-- UPGRADED to v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # 4. THE COMPILATION
       - name: Make Gradle Executable
         working-directory: ./carmatch-mobile/android
         run: chmod +x gradlew
@@ -40,9 +36,8 @@ jobs:
         working-directory: ./carmatch-mobile/android
         run: ./gradlew assembleRelease
 
-      # 5. THE OUTPUT: Save the APK so you can download it
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # <-- UPGRADED to v4
         with:
           name: CarMatch-Production-APK
           path: carmatch-mobile/android/app/build/outputs/apk/release/app-release.apk
