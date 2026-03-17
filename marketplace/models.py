@@ -25,6 +25,9 @@ class Vehicle(models.Model):
     mileage = models.IntegerField()
     asking_price = models.DecimalField(max_digits=10, decimal_places=2)
     
+    # NEW: Added ImageField to store car photos
+    image = models.ImageField(upload_to='vehicle_photos/', blank=True, null=True)
+    
     # NEW: Where is the car parked?
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)

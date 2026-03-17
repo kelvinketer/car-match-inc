@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta # <-- Added to configure JWT expiration
+import os # <-- Added to handle file paths for Media
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,13 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=)g8m!6g+%j*v1%0l6nt@_7grpgry3#x*gu06)6jhxza+_0#v9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # UPDATED: Allow Render to host the application
 ALLOWED_HOSTS = [
     'car-match-backend-wn9m.onrender.com', 
     'localhost', 
-    '127.0.0.1'
+    '192.168.0.106', 
+    '127.0.0.1', 
+    '*'
 ]
 
 
@@ -165,3 +168,8 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+# --- MEDIA FILE CONFIGURATION ---
+# These settings handle user-uploaded car photos
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
